@@ -2,28 +2,37 @@ from Parameters import Parameters, DEFAULT_PARAMETERS
 
 
 def CheckDistance(word1: str, word2: str, parameters: Parameters = DEFAULT_PARAMETERS):
+    # put everything to lowercase
     word1 = word1.lower()
     word2 = word2.lower()
-    # Start by checking word lengths?
+
     # check which is smallest
     if (len(word1) > len(word2)):
-        # swap if needed
+        # swap if needed to get shortest first
         word1, word2 = word2, word1
-    # I'll assume windows of size 3 for quick writeup
-    # will I need to use padding?
-    scores = [0]
-    for i in range(1, len(word1) - 1): 
-        temp = [0]  # padding temp with 0 to ensure no error with max
-        deltas = [-1, 0, 1]
+    
+    # compute deltas from window size
+    idMiddle = parameters.WindowSize // 2 + 1
+    deltas = [i - idMiddle + 1 for i in range(parameters.WindowSize)]
+
+    scores = []
+    # iterate on words letters
+    for idLetterWord1 in range(len(word1)):
+        tempScores = []
         for idDelta in range(len(deltas)):
-            currId = i + deltas[idDelta]
-            # check if still in word 2
-            if currId >= len(word2):
-                break
-            if word1[i] == word2[currId]:
-                temp.append(parameters.Scores[idDelta])
-        scores.append(max(temp))
-    return sum(scores)/len(scores)   #len(word2)   # for lower scores?
+            idLetterWord2 = idLetterWord1 + deltas[idDelta]
+            if idLetterWord2 < 0 or idLetterWord2 >= len(word1):
+                continue
+            if word1[idLetterWord1] == word2[idLetterWord2]:
+                tempScores.append(parameters.Scores[idDelta])
+            else:
+                tempScores.append(0.0)
+        # ensure tempScores not empty
+        tempScores.append(0)
+        scores.append(max(tempScores))
+    if len(scores) == 0:
+        scores.append(0)
+    return sum(scores) / len(scores)
 
 
 
