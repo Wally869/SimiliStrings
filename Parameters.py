@@ -21,4 +21,4 @@ class Parameters(object):
         raise NotImplementedError("Parameters.FromWindowSize - Not Implemented.")  
 
 
-DEFAULT_PARAMETERS = Parameters.FromScores([0.4, 1.0, 0.4]) 
+DEFAULT_PARAMETERS = Parameters.FromScores([0.66, 1.0, 0.66]) 
