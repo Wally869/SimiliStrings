@@ -12,7 +12,9 @@ Finally get the mean of all characters score and return it.
 ## Motivation  
 I am working on a story generator, and I wanted a quick way to ensure that the names generated for characters are not too close, to avoid potential confusion.  
 
+## Future   
 
+I'd like to do some tests on a variety of strings. Also compare/rewrite it to Levenshtein? (https://en.wikipedia.org/wiki/Levenshtein_distance)  
 
 Usage:  
 Use the CheckDistance function in main to compare words
